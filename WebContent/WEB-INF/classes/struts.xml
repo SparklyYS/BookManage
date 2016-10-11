@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+   <constant name="struts.i18n.encoding" value="UTF-8" />
+   <constant name="struts.devMode" value="true" />
+   <package name="LoginRegist" extends="struts-default"> 
+      <action name="loginaction" 
+         class="com.bookmanage.struts2.LoginAction"
+         method="login">
+         <result name="success">/Search.jsp</result>
+         <result name="error">/PasswordNotMatch.jsp</result>
+      </action>  
+      <action name="registaction"
+      	class="com.bookmanage.struts2.RegistAction"
+      	method="regist">
+      	<result name="PasswordError">/PasswordError.jsp</result>
+      	<result name="RegistError">/RegistError.jsp</result>
+      	<result name="success">/LoginandRegist.jsp</result>
+      	<result name="error">/State/error.jsp</result>
+      </action>
+   </package>
+   
+   <package name="Search" extends="struts-default">
+   	<action name="BookSearch"
+   		class="com.bookmanage.struts2.BookSearchAction"
+   		method="BookSearch">
+   		<result name="NoneSearchError">/State/NoneSearchError.jsp</result>
+   		<result name="success">/TableResult.jsp</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   	
+   	<action name="DeleteBook"
+   		class="com.bookmanage.struts2.DeleteBookAction"
+   		method="DeleteBook">
+   		<result name="success" type="redirectAction">
+   			<param name="actionName">BookSearch</param>
+   			<param name="AuthorName">${AuthorName}</param>
+   		</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   	
+   	<action name="DeleteRowBook"
+   		class="com.bookmanage.struts2.DeleteBookAction"
+   		method="DeleteBook">
+   		<result name="success" type="redirectAction">
+   			<param name="actionName">ShowAllBook</param>
+   		</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   </package>
+   
+   <package name="ShowDetail" extends="struts-default">
+   	<action name="ShowDetail"
+   		class="com.bookmanage.struts2.ShowDetailAction"
+   		method = "ShowDetail">
+   		<result name="success">/ShowDetail.jsp</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   	
+   	<action name="ShowBook"
+   		class="com.bookmanage.struts2.ShowBookAction"
+   		method = "ShowBook">
+   		<result name="success">/BookEdit.jsp</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   	
+   	<action name="ShowAllBook"
+   		class="com.bookmanage.struts2.ShowAllBookAction"
+   		method = "ShowAllBook">
+   		<result name="success">/ShowAllBook.jsp</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   </package>
+   
+   
+   <package name="Edit" extends="struts-default">
+   	<action name="BookEdit"
+   		class="com.bookmanage.struts2.EditBookAction"
+   		method = "EditBook">
+   		<result name="success" type="redirectAction">
+   			<param name="actionName">BookSearch</param>
+   			<param name="AuthorName">${AuthorName}</param>
+   		</result>
+   		<result name="input">/EditResult.jsp </result>
+   		<result name="error">/State/404page.jsp </result>
+   	</action>
+   	
+   	<action name="AllBookEdit"
+   		class="com.bookmanage.struts2.EditBookAction"
+   		method = "EditBook">
+   		<result name="success" type="redirectAction">
+   			<param name="actionName">ShowAllBook</param>
+   		</result>
+   		<result name="error">/404Page.html</result>
+   	</action>
+   	
+   	<action name="AddBook"
+   		class="com.bookmanage.struts2.AddBookAction"
+   		method="AddBook">
+   		<result name="success" type="redirectAction">
+   			<param name="actionName">BookSearch</param>
+   			<param name="AuthorName">${AuthorName}</param>
+   		</result>
+   		<result name="NoAuthorExist">/NoAuthorExist.jsp</result>
+   		<result name="error">/AddBookError.jsp</result>
+   	</action>
+   </package>
+</struts>
